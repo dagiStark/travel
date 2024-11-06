@@ -2,10 +2,23 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
 import { FontAwesome, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { colors } from "@/constants/colors";
 
 const Layout = () => {
   return (
-    <Tabs>
+    <Tabs
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: colors.bgColor,
+          borderTopWidth: 0,
+          elevation: 0,
+          padding: 0,
+        },
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: colors.primaryColor,
+        tabBarInactiveTintColor: colors.textSecondary,
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
