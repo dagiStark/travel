@@ -13,6 +13,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
 import { useHeaderHeight } from "@react-navigation/elements";
 import CategoryButtons from "@/components/CategoryButtons";
+import Listings from "@/components/Listings";
 
 const Page = () => {
   const headerHeight = useHeaderHeight();
@@ -77,6 +78,7 @@ const Page = () => {
         </View>
 
         <CategoryButtons onCategoryChange={onCategoryChange} />
+        <Listings />
       </View>
     </>
   );
