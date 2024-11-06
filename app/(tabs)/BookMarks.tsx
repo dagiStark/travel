@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Page = () => {
+const BookMarks = () => {
   return (
     <View style={styles.container}>
-      <Text>Page</Text>
+      <Text>BookMarks</Text>
     </View>
   );
 };
 
-export default Page;
+export default BookMarks;
 
 const styles = StyleSheet.create({
   container: {

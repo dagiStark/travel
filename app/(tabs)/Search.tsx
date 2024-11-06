@@ -1,15 +1,15 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Page = () => {
+const Search = () => {
   return (
     <View style={styles.container}>
-      <Text>Page</Text>
+      <Text>Search</Text>
     </View>
   );
 };
 
-export default Page;
+export default Search;
 
 const styles = StyleSheet.create({
   container: {
