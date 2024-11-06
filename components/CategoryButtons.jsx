@@ -11,29 +11,22 @@ import { destinationCategories } from "@/constants/index";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const CategoryButtons = () => {
-  const itemRef = useRef < (TouchableOpacity | null) > [];
+  const itemRef = useRef(Array(destinationCategories.length).fill(null));
+  const scrollRef = (useRef < ScrollView) | (null > null);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
   const handleSelectCategory = (index) => {
     setActiveIndex(index);
-    if (itemRef.current[index]) {
-      itemRef.current[index].measure((x, y, width, height, pageX, pageY) => {
-        itemRef.current[index].setNativeProps({
-          style: {
-            backgroundColor: colors.primaryColor,
-            borderRadius: 10,
-            shadowColor: "#171717",
-            shadowOffset: {
-              width: 2,
-              height: 4,
-            },
-            shadowOpacity: 0.2,
-            shadowRadius: 3,
-          },
-        });
+    const selected = itemRef.current[index];
+    selected?.measure((x) => {
+      scrollRef.current?.scrollTo({
+        x: x,
+        y: 0,
+        animated: true,
       });
-    }
+    });
   };
+
   return (
     <View>
       <Text style={styles.title}>Categories</Text>
@@ -55,14 +48,22 @@ const CategoryButtons = () => {
                 : styles.categoryBtn
             }
             onPress={() => handleSelectCategory(index)}
-            ref={(ref) => (itemRef.current[index] = ref)}
+            ref={(el) => (itemRef.current[index] = el)}
           >
             <MaterialCommunityIcons
               name={item.iconName}
               size={20}
-              color={colors.black}
+              color={activeIndex === index ? colors.white : colors.black}
             />
-            <Text style={styles.categoryBtnTxt}>{item.title}</Text>
+            <Text
+              style={
+                activeIndex === index
+                  ? styles.categoryBtnTxtActive
+                  : styles.categoryBtnTxt
+              }
+            >
+              {item.title}
+            </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
@@ -98,15 +99,24 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     color: colors.black,
   },
+  categoryBtnTxtActive: {
+    marginLeft: 5,
+    color: colors.white,
+  },
   categoryBtnActive: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: colors.primaryColor,
+    paddingHorizontal: 16,
+    paddingVertical: 10,
     borderRadius: 10,
-    shadowColor: "#171717",
+    shadowColor: "#333333",
     shadowOffset: {
-      width: 2,
-      height: 4,
+      width: 1,
+      height: 2,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.1,
     shadowRadius: 3,
   },
 });
