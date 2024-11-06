@@ -28,7 +28,13 @@ const Listings = ({ listings }: Props) => {
           <Text style={styles.itemTxt} numberOfLines={1} ellipsizeMode="tail">
             {item.name}
           </Text>
-          <View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
               <FontAwesome5
                 name="map-marker-alt"
@@ -37,6 +43,7 @@ const Listings = ({ listings }: Props) => {
               />
               <Text style={styles.itemLocationTxt}>{item.location}</Text>
             </View>
+            <Text style={styles.itemPriceTxt}>${item.price}</Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -91,4 +98,9 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 5,
   },
+  itemPriceTxt: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: colors.primaryColor,
+  }
 });
