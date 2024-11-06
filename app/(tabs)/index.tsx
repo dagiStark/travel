@@ -5,6 +5,7 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
@@ -17,7 +18,6 @@ import Listings from "@/components/Listings";
 import listingData from "@/constants/destinations.json";
 import groupData from "@/constants/group.json";
 import GroupListings from "@/components/GroupListings";
-
 
 const Page = () => {
   const headerHeight = useHeaderHeight();
@@ -65,25 +65,27 @@ const Page = () => {
         }}
       />
       <View style={[styles.container, { paddingTop: headerHeight }]}>
-        <Text style={styles.headingTxt}>Explore the Beautiful world!</Text>
-        <View style={styles.searchSectionWrapper}>
-          <View style={styles.searchBar}>
-            <Ionicons
-              name="search"
-              size={18}
-              style={{ marginRight: 10 }}
-              color={colors.black}
-            />
-            <TextInput placeholder="search..." />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={styles.headingTxt}>Explore the Beautiful world!</Text>
+          <View style={styles.searchSectionWrapper}>
+            <View style={styles.searchBar}>
+              <Ionicons
+                name="search"
+                size={18}
+                style={{ marginRight: 10 }}
+                color={colors.black}
+              />
+              <TextInput placeholder="search..." />
+            </View>
+            <TouchableOpacity onPress={() => {}} style={styles.filterBtn}>
+              <Ionicons name="options" size={28} color={colors.white} />
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => {}} style={styles.filterBtn}>
-            <Ionicons name="options" size={28} color={colors.white} />
-          </TouchableOpacity>
-        </View>
 
-        <CategoryButtons onCategoryChange={onCategoryChange} />
-        <Listings listings={listingData} category={category} />
-        <GroupListings listings={groupData} />
+          <CategoryButtons onCategoryChange={onCategoryChange} />
+          <Listings listings={listingData} category={category} />
+          <GroupListings listings={groupData} />
+        </ScrollView>
       </View>
     </>
   );
