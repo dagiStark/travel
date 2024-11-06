@@ -79,7 +79,7 @@ const Page = () => {
         </View>
 
         <CategoryButtons onCategoryChange={onCategoryChange} />
-        <Listings listings={listingData} />
+        <Listings listings={listingData} category={category} />
       </View>
     </>
   );
