@@ -12,6 +12,7 @@ import female from "@/assets/images/female.png";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
 import { useHeaderHeight } from "@react-navigation/elements";
+import CategoryButtons from "@/components/CategoryButtons";
 
 const Page = () => {
   const headerHeight = useHeaderHeight();
@@ -53,7 +54,6 @@ const Page = () => {
       />
       <View style={[styles.container, { paddingTop: headerHeight }]}>
         <Text style={styles.headingTxt}>Explore the Beautiful world!</Text>
-
         <View style={styles.searchSectionWrapper}>
           <View style={styles.searchBar}>
             <Ionicons
@@ -68,6 +68,8 @@ const Page = () => {
             <Ionicons name="options" size={28} color={colors.white} />
           </TouchableOpacity>
         </View>
+
+        <CategoryButtons />
       </View>
     </>
   );
