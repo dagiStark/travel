@@ -10,27 +10,34 @@ import { colors } from "@/constants/colors";
 import { destinationCategories } from "@/constants/index";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-const CategoryButtons = () => {
+type Props = {
+  onCategoryChange: (category: string) => void;
+};
+
+const CategoryButtons = ({ onCategoryChange }: Props) => {
   const itemRef = useRef(Array(destinationCategories.length).fill(null));
-  const scrollRef = (useRef < ScrollView) | (null > null);
+  const scrollRef = useRef(null);
   const [activeIndex, setActiveIndex] = React.useState(0);
 
-  const handleSelectCategory = (index) => {
+  const handleSelectCategory = (index: number) => {
     setActiveIndex(index);
     const selected = itemRef.current[index];
-    selected?.measure((x) => {
+    selected?.measureLayout(scrollRef.current, (x) => {
       scrollRef.current?.scrollTo({
         x: x,
         y: 0,
         animated: true,
       });
     });
+
+    onCategoryChange(destinationCategories[index].title);
   };
 
   return (
     <View>
       <Text style={styles.title}>Categories</Text>
       <ScrollView
+        ref={scrollRef}
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
@@ -40,31 +47,32 @@ const CategoryButtons = () => {
         }}
       >
         {destinationCategories.map((item, index) => (
-          <TouchableOpacity
+          <View
             key={index}
+            ref={(el) => (itemRef.current[index] = el)}
             style={
               activeIndex === index
                 ? styles.categoryBtnActive
                 : styles.categoryBtn
             }
-            onPress={() => handleSelectCategory(index)}
-            ref={(el) => (itemRef.current[index] = el)}
           >
-            <MaterialCommunityIcons
-              name={item.iconName}
-              size={20}
-              color={activeIndex === index ? colors.white : colors.black}
-            />
-            <Text
-              style={
-                activeIndex === index
-                  ? styles.categoryBtnTxtActive
-                  : styles.categoryBtnTxt
-              }
-            >
-              {item.title}
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleSelectCategory(index)}>
+              <MaterialCommunityIcons
+                name={item.iconName}
+                size={20}
+                color={activeIndex === index ? colors.white : colors.black}
+              />
+              <Text
+                style={
+                  activeIndex === index
+                    ? styles.categoryBtnTxtActive
+                    : styles.categoryBtnTxt
+                }
+              >
+                {item.title}
+              </Text>
+            </TouchableOpacity>
+          </View>
         ))}
       </ScrollView>
     </View>

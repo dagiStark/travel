@@ -16,6 +16,13 @@ import CategoryButtons from "@/components/CategoryButtons";
 
 const Page = () => {
   const headerHeight = useHeaderHeight();
+  const [category, setCategory] = React.useState("All");
+
+  const onCategoryChange = (category: string) => {
+    console.log(category);
+    setCategory(category);
+  };
+
   return (
     <>
       <Stack.Screen
@@ -69,7 +76,7 @@ const Page = () => {
           </TouchableOpacity>
         </View>
 
-        <CategoryButtons />
+        <CategoryButtons onCategoryChange={onCategoryChange} />
       </View>
     </>
   );
