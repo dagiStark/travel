@@ -108,9 +108,7 @@ const ListingDetails = () => {
               </View>
               <View>
                 <Text style={styles.highlightTxt}>Persons</Text>
-                <Text style={styles.highlightTxtValue}>
-                  {listing.duration} 
-                </Text>
+                <Text style={styles.highlightTxtValue}>{listing.duration}</Text>
               </View>
             </View>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -126,6 +124,19 @@ const ListingDetails = () => {
             </View>
           </View>
         </View>
+
+        <Text style={styles.listingDetails}>{listing.description}</Text>
+      </View>
+      <View style={styles.footer}>
+        <TouchableOpacity
+          onPress={() => {}}
+          style={[styles.footerBtn, styles.footerBookBtn]}
+        >
+          <Text style={styles.footerBtnTxt}>Book Now</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}} style={styles.footerBtn}>
+          <Text style={styles.footerBtnTxt}>{listing.price}</Text>
+        </TouchableOpacity>
       </View>
     </>
   );
@@ -183,5 +194,41 @@ const styles = StyleSheet.create({
   highlightTxtValue: {
     fontSize: 14,
     fontWeight: "600",
+  },
+  listingDetails: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: colors.black,
+    marginTop: 10,
+    lineHeight: 25,
+    letterSpacing: 0.5,
+    paddingHorizontal: 20,
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    bottom: 0,
+    padding: 20,
+    paddingBottom: 30,
+    width: width,
+  },
+  footerBtn: {
+    backgroundColor: colors.black,
+    padding: 20,
+    borderRadius: 10,
+    flex: 1,
+    alignItems: "center",
+  },
+  footerBtnTxt: {
+    fontSize: 16,
+    fontWeight: "600",
+    textTransform: "uppercase",
+    color: colors.white,
+  },
+  footerBookBtn: {
+    backgroundColor: colors.primaryColor,
+    marginRight: 20,
+    flex: 2,
   },
 });
