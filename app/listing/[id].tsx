@@ -1,4 +1,11 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import listingData from "@/constants/destinations.json";
@@ -73,60 +80,65 @@ const ListingDetails = () => {
         }}
       />
       <View style={styles.container}>
-        <Image source={{ uri: listing.image }} style={styles.image} />
+        <ScrollView contentContainerStyle={{paddingBottom: 150 }}>
+          <Image source={{ uri: listing.image }} style={styles.image} />
 
-        <View style={styles.contentWrapper}>
-          <Text style={styles.listingName}>{listing.name}</Text>
-          <View style={styles.listingLocationWrapper}>
-            <FontAwesome5
-              name="map-marker-alt"
-              size={18}
-              color={colors.primaryColor}
-            />
-            <Text style={styles.listingLocationTxt}>{listing.location}</Text>
+          <View style={styles.contentWrapper}>
+            <Text style={styles.listingName}>{listing.name}</Text>
+            <View style={styles.listingLocationWrapper}>
+              <FontAwesome5
+                name="map-marker-alt"
+                size={18}
+                color={colors.primaryColor}
+              />
+              <Text style={styles.listingLocationTxt}>{listing.location}</Text>
+            </View>
+
+            <View style={styles.highlightWrapper}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={styles.highlightIcon}>
+                  <Ionicons name="time" size={20} color={colors.primaryColor} />
+                </View>
+                <View>
+                  <Text style={styles.highlightTxt}>Duration</Text>
+                  <Text style={styles.highlightTxtValue}>
+                    {listing.duration} Days
+                  </Text>
+                </View>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={styles.highlightIcon}>
+                  <FontAwesome
+                    name="users"
+                    size={20}
+                    color={colors.primaryColor}
+                  />
+                </View>
+                <View>
+                  <Text style={styles.highlightTxt}>Persons</Text>
+                  <Text style={styles.highlightTxtValue}>
+                    {listing.duration}
+                  </Text>
+                </View>
+              </View>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <View style={styles.highlightIcon}>
+                  <Ionicons name="star" size={20} color={colors.primaryColor} />
+                </View>
+                <View>
+                  <Text style={styles.highlightTxt}>Duration</Text>
+                  <Text style={styles.highlightTxtValue}>
+                    {listing.duration} Days
+                  </Text>
+                </View>
+              </View>
+            </View>
           </View>
 
-          <View style={styles.highlightWrapper}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View style={styles.highlightIcon}>
-                <Ionicons name="time" size={20} color={colors.primaryColor} />
-              </View>
-              <View>
-                <Text style={styles.highlightTxt}>Duration</Text>
-                <Text style={styles.highlightTxtValue}>
-                  {listing.duration} Days
-                </Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View style={styles.highlightIcon}>
-                <FontAwesome
-                  name="users"
-                  size={20}
-                  color={colors.primaryColor}
-                />
-              </View>
-              <View>
-                <Text style={styles.highlightTxt}>Persons</Text>
-                <Text style={styles.highlightTxtValue}>{listing.duration}</Text>
-              </View>
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <View style={styles.highlightIcon}>
-                <Ionicons name="star" size={20} color={colors.primaryColor} />
-              </View>
-              <View>
-                <Text style={styles.highlightTxt}>Duration</Text>
-                <Text style={styles.highlightTxtValue}>
-                  {listing.duration} Days
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-
-        <Text style={styles.listingDetails}>{listing.description}</Text>
+          <Text style={styles.listingDetails}>{listing.description}</Text>
+        </ScrollView>
       </View>
+
       <View style={styles.footer}>
         <TouchableOpacity
           onPress={() => {}}
