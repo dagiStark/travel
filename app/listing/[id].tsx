@@ -19,6 +19,13 @@ import {
   Ionicons,
 } from "@expo/vector-icons";
 import { colors } from "@/constants/colors";
+import Animated, {
+  useAnimatedRef,
+  useScrollViewOffset,
+  useAnimatedStyle,
+  interpolate,
+  SlideInDown,
+} from "react-native-reanimated";
 
 const { width } = Dimensions.get("window");
 const IMG_HEIGHT = 300;
@@ -28,6 +35,28 @@ const ListingDetails = () => {
   const listing: ListingType = (listingData as ListingType[]).find(
     (listing) => listing.id === id
   );
+  const scrollRef = useAnimatedRef<Animated.ScrollView>();
+  const scrollOffset = useScrollViewOffset(scrollRef);
+  const imageAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          translateY: interpolate(
+            scrollOffset.value,
+            [-IMG_HEIGHT, 0, IMG_HEIGHT],
+            [-IMG_HEIGHT / 2, 0, IMG_HEIGHT * 0.75]
+          ),
+        },
+        {
+          scale: interpolate(
+            scrollOffset.value,
+            [-IMG_HEIGHT, 0, IMG_HEIGHT],
+            [1, 1, 0.75]
+          ),
+        },
+      ],
+    };
+  });
 
   const router = useRouter();
 
@@ -80,8 +109,14 @@ const ListingDetails = () => {
         }}
       />
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={{paddingBottom: 150 }}>
-          <Image source={{ uri: listing.image }} style={styles.image} />
+        <Animated.ScrollView
+          ref={scrollRef}
+          contentContainerStyle={{ paddingBottom: 150 }}
+        >
+          <Animated.Image
+            source={{ uri: listing.image }}
+            style={[styles.image, imageAnimatedStyle]}
+          />
 
           <View style={styles.contentWrapper}>
             <Text style={styles.listingName}>{listing.name}</Text>
@@ -126,20 +161,18 @@ const ListingDetails = () => {
                   <Ionicons name="star" size={20} color={colors.primaryColor} />
                 </View>
                 <View>
-                  <Text style={styles.highlightTxt}>Duration</Text>
-                  <Text style={styles.highlightTxtValue}>
-                    {listing.duration} Days
-                  </Text>
+                  <Text style={styles.highlightTxt}>Rating</Text>
+                  <Text style={styles.highlightTxtValue}>{listing.rating}</Text>
                 </View>
               </View>
             </View>
           </View>
 
           <Text style={styles.listingDetails}>{listing.description}</Text>
-        </ScrollView>
+        </Animated.ScrollView>
       </View>
 
-      <View style={styles.footer}>
+      <Animated.View style={styles.footer} entering={SlideInDown.delay(200)}>
         <TouchableOpacity
           onPress={() => {}}
           style={[styles.footerBtn, styles.footerBookBtn]}
@@ -149,7 +182,7 @@ const ListingDetails = () => {
         <TouchableOpacity onPress={() => {}} style={styles.footerBtn}>
           <Text style={styles.footerBtnTxt}>{listing.price}</Text>
         </TouchableOpacity>
-      </View>
+      </Animated.View>
     </>
   );
 };
@@ -167,6 +200,7 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     padding: 20,
+    backgroundColor: colors.white,
   },
   listingName: {
     fontSize: 24,
